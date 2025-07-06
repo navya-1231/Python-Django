@@ -1,0 +1,15 @@
+{% extends "parent.html" %} <!-- This line extends the parent template -->
+
+<!-- {% block content %} This block will be replaced by the content of this child template -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block content1 %}<title>child</title>{% endblock content1 %} <!-- This block can be overridden in the child template -->
+</head>
+<body>
+    <h1>this is child page</h1>
+</body>
+</html>

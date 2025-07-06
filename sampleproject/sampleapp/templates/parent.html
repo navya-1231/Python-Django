@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parent</title>
+    {% block content1 %}<title>child</title>{% endblock content1 %} <!-- This block can be overridden in the child template -->
+
+</head>
+<body>
+    <h1>this is parent page</h1>
+</body>
+</html>
