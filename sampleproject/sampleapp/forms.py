@@ -1,5 +1,5 @@
 from django import forms
-from .models import College, School, Hospital
+from .models import College, School, Hospital, Collection,Shop
 
 class writer(forms.Form):
     name=forms.CharField(max_length=30)
@@ -27,3 +27,12 @@ class HospitalForm(forms.ModelForm): # Hospital form to handle Hospital model da
         fields = "__all__"  # This will include all fields from the Hospital model
         # fields = ['name', 'age']  # Specify the fields to include in the form
         # exclude = ['place']  # Exclude the 'place' field from the form
+
+class CollectionForm(forms.ModelForm):
+    class Meta: # Collection form to handle Collection model data
+        model = Collection # model name
+        fields = "__all__"  # This will include all fields from the Collection model
+class ShopForm(forms.ModelForm):
+    class Meta:
+        model = Shop
+        fields = ['firstname', 'lastname', 'place']  # Specify the fields to include in the form

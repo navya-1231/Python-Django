@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/update_hospital/{{ data.id }}" method="post"> <!-- This line is updated to include the ID in the action URL for updating the specific hospital record -->
+        <!-- The action URL now points to the specific hospital's update endpoint, allowing the form to submit to the correct URL -->
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Enter Name" value="{{ data.name }}"><br><br> <!-- This line is updated to use `value` attribute for pre-filling the form -->
+        <input type="text" name="place" placeholder="Enter Place" value="{{ data.place }}"><br><br>
+        <input type="number" name="age" placeholder="Enter Age" value="{{ data.age }}"><br><br>
+        <input type="submit" value="Submit"><br>
+    </form>
+</body>
+</html>

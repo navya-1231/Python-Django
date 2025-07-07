@@ -52,3 +52,20 @@ class Hospital(models.Model):
     name=models.CharField(max_length=30)
     place=models.CharField(max_length=30)
     age=models.IntegerField()
+
+class Collection(models.Model):
+    name=models.CharField(max_length=30)
+    document=models.FileField(upload_to='media')
+
+class Book(models.Model):
+    book_name=models.CharField(max_length=30)
+    author_name=models.CharField(max_length=50)
+    price=models.IntegerField()
+    
+class Shop(models.Model):
+    firstname=models.CharField(max_length=30)
+    lastname=models.CharField(max_length=30)
+    email=models.EmailField(max_length=50)
+    place=models.CharField(max_length=30)
+   
+    

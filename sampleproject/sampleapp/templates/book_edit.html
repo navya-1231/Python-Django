@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/ubook/{{ book.id }}" method="post"> <!-- This line is updated to include the ID in the action URL for updating the specific book record -->
+        <!-- The action URL now points to the specific book's update endpoint, allowing the form to submit to the correct URL -->
+        {% csrf_token %}
+        <input type="text" name="book_name" placeholder="Enter Name" value="{{ book.book_name }}"><br><br> <!-- This line is updated to use `value` attribute for pre-filling the form -->
+        <input type="text" name="author_name" placeholder="Enter Author" value="{{ book.author_name }}"><br><br>
+        <input type="number" name="price" placeholder="Enter Price" value="{{ book.price }}"><br><br>
+        <input type="submit" value="Submit"><br>
+</body>
+</html>

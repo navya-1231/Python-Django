@@ -11,12 +11,17 @@
             <th>name</th>
             <th>place</th>
             <th>age</th>
+            <th>delete</th>
+            <th>edit</th>
         </tr>
         {% for i in data %}
         <tr>
             <td>{{ i.name }}</td>
             <td>{{ i.place }}</td>
             <td>{{ i.age }}</td>
+            <td><a href="delete_hospital/{{ i.id }}">delete</a></td>
+            <td><a href="edit_hospital/{{ i.id }}">edit</a></td>
+            
         </tr>
         {% endfor %}
     </table>

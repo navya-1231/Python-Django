@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Collection Documents</h1>
+    <table>
+        <tr>
+            <th>name</th>
+            <th>document</th>
+            <th>delete</th> 
+            <th>edit</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{ i.name }}</td>
+            <!-- <td>{{ i.document }}</td> -->
+            <td><a href="{{i.document.url}}" download>Download File</a></td> <!-- This line creates a link to download the file -->
+            <!-- The 'download' attribute in the anchor tag allows the file to be downloaded when clicked -->
+            <td><a href="del_collection/{{ i.id }}">Delete</a></td>
+            <td><a href="edit_collection/{{ i.id }}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
