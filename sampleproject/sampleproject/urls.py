@@ -14,9 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path,include
 from sampleapp import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,3 +27,10 @@ urlpatterns = [
     # path('view2',views.display2)
     path("",include("sampleapp.urls"))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # This will serve media files during development. In production, you should configure your web server to serve these files.
+
+# when you upload an images using an imagefiles in a model
+# django will save the file to media root and then construct the url to access this file using media url

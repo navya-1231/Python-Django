@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import writer,Author,CollegeForm ,SchoolForm, HospitalForm, CollectionForm,ShopForm
-from .models import Library, Hospital, Collection,Book,Shop
+from .models import Library, Hospital, Collection,Book,Shop, Person, Trainer, testing_img
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView # Importing generic views
 # Create your views here.
 
 # request:parameter represents the HTTP request sent by the user to the server
@@ -80,7 +81,9 @@ def lib(request):
     else:
         return render(request,"lib.html")
     
-# CRED OPERATIONS 
+# ==========================================================================================
+
+# CRED OPERATIONS on model forms
 
 # CREATE ,add new hospital data
 def hospitalview(request):
@@ -127,7 +130,10 @@ def update_hospital(request, id):
         return HttpResponse("not working")
     return HttpResponse("Invalid request method")  # Handle invalid request methods
 
-# CRUD operations for the Collection model
+# ==========================================================================================
+
+# CRUD operations 
+
 def collection_view(request):
     if request.method=='POST':
         coll_form=CollectionForm(request.POST,request.FILES)  # Create a form instance with the POST data and uploaded files
@@ -163,6 +169,8 @@ def update_collection(request, id):
             coll_form.save()
             return redirect(view_collection)  # Redirect to the view collection page after updating
         return render(request, "editcollection.html", {"data": collection})  # Render the edit form again if the form is not valid
+
+# ==========================================================================================
 
 # CRUD operations for the normal forms
 
@@ -202,6 +210,8 @@ def book_update(request, id):
         book.save()
         return HttpResponse("<script>alert('Updated successfully');window.location.href='http://127.0.0.1:8000/bview';</script>")  # Redirect to the book view page after updating
 
+# ==========================================================================================
+
 def shop_create(request):
     if request.method == "POST":
         z=ShopForm(request.POST)
@@ -212,3 +222,167 @@ def shop_create(request):
         x=ShopForm()
         return render(request,"shop.html",{"view":x})
     
+# ==========================================================================================
+
+    
+def person(request):
+    if request.method=='POST':
+        name=request.POST['name']
+        gender=request.POST['gender']
+        p=Person.objects.create(name=name,gender=gender)
+        p.save()
+        return redirect(person_view)
+    else:
+        return render(request,"person.html")
+    
+def person_view(request):
+    persons = Person.objects.all()  # Fetch all Person objects from the database
+    return render(request, "person_view.html", {"persons": persons})  # Pass the Person objects to the template
+
+def person_delete(request, id):
+    person = Person.objects.get(id=id)  # Get the Person object by its ID
+    person.delete()  # Delete the Person object
+    return redirect(person_view)  # Redirect to the person view page after deletion
+
+def person_edit(request, id):
+    person = Person.objects.get(id=id)  # Get the Person object by its ID
+    return render(request, "person_edit.html", {"person": person})
+
+def person_update(request, id):
+    if request.method == "POST":
+        name = request.POST['name']
+        gender = request.POST['gender']
+        person = Person.objects.get(id=id)
+        person.name = name
+        person.gender = gender
+        person.save()
+        return redirect(person_view)
+
+# ==========================================================================================
+
+def imagefiles(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        image = request.FILES['image']
+        img = testing_img.objects.create(title=title, images=image)
+        img.save()
+        return redirect(imagefiles_view)
+    else:
+        return render(request, "imagefiles.html")
+    
+def imagefiles_view(request):
+    images = testing_img.objects.all()  # Fetch all testing_img objects from the database
+    return render(request, "imagefiles_view.html", {"images": images})  # Pass the testing_img objects to the template
+
+def imagefiles_delete(request, id):
+    image = testing_img.objects.get(id=id)  # Get the testing_img object by its ID
+    image.delete()  # Delete the testing_img object
+    return HttpResponse("<script>alert('Deleted successfully');window.location.href='http://127.0.0.1:8000/imagefiles_view';</script>")
+
+def imagefiles_edit(request, id):
+    image = testing_img.objects.get(id=id)  # Get the testing_img object by its ID
+    return render(request, "imagefiles_edit.html", {"image": image})  # Render the edit form with the testing_img object data
+
+# def imagefiles_update(request, id):
+#     if request.method == "POST":
+#         title = request.POST['title']
+#         image = request.FILES['image']
+#         img = testing_img.objects.get(id=id)  # Get the testing_img object by its ID
+#         img.title = title
+#         img.images = image
+#         img.save()
+#         return HttpResponse("<script>alert('Updated successfully');window.location.href='http://127.0.0.1:8000/imagefiles_view';</script>")
+
+# in above code,it only updates the image not name , below code updates both image and name
+
+def imagefiles_update(request, id):
+    if request.method == "POST":
+        
+        title = request.POST['title']
+        img = testing_img.objects.get(id=id)  # Get the testing_img object by its ID
+        if 'image' in request.FILES:
+            image = request.FILES['image']
+            img.images = image
+        
+        img.title = title
+        
+        img.save()
+        return redirect(imagefiles_view)
+    
+# ==========================================================================================
+
+# cookie set and get
+def setcookie(request):
+    r=HttpResponse("Cookie Set")
+    r.set_cookie("django","django is a web framework")
+    return r
+
+def getcookie(request):
+    r=request.COOKIES['django']
+    return HttpResponse(r)
+
+def setsession(request):
+    request.session['email']="abc@gmail.com"
+    return HttpResponse("Session Set")
+
+def getsession(request):
+    r=request.session['email']
+    return HttpResponse(r)
+
+def deletesession(request):
+    del request.session['email']  # Delete the session variable
+    return HttpResponse("Session deleted successfully")
+    
+
+# ==================================================================== 
+
+def Home(request):
+    return render(request,"Homepage.html")   
+
+def Login(request):
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        request.session['username'] = username  # Store the username in the session
+        return redirect(UserEdit)
+    else:    
+        return render(request,"userlogin.html")
+    
+def UserEdit(request):
+    username=request.session['username']  # Get the username from the session
+    return render(request,"UserEdit.html",{"username":username})
+
+def userLogout(request):
+    del request.session['username']  # Delete the username from the session
+    return redirect(Home)  # Redirect to the home page after logout
+
+
+# ==================================================================== 
+# GENERIC VIEWS for CRUD operations-class based crud operations
+# 
+class Trainercreate(CreateView):
+    model=Trainer
+    fields=['name','age','place','email','phone']
+    template_name="trainer_create.html"
+    success_url="/listview/"  # Redirect to the view page after creating a new trainer
+
+class TrainerList(ListView):
+    model=Trainer
+    template_name="trainer_list.html"
+    context_object_name="trainers"  # Name of the context variable to be used in the template
+
+class Trainerdetail(DetailView):    
+    model=Trainer
+    template_name="trainer_detail.html"
+    context_object_name="trainer"  # Name of the context variable to be used in the template
+
+class Trainerdelete(DeleteView):
+    model=Trainer
+    template_name="trainer_delete.html"
+    success_url="/listview/"  # Redirect to the view page after deleting a trainer
+
+class Trainerupdate(UpdateView):
+    model=Trainer
+    fields=['name','age','place','email','phone']
+    template_name="trainer_create.html"
+    success_url="/listview/"  # Redirect to the view page after updating a trainer    

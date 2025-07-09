@@ -34,4 +34,39 @@ urlpatterns = [
 
 
     path('shop', shop_create), 
+
+
+    path('person', person), 
+    path('person_view', person_view),  # Added person view URL pattern
+    path('person_delete/<int:id>', person_delete),  # Added person delete URL pattern
+    path('person_edit/<int:id>', person_edit),  # Added person edit URL pattern
+    path('person_update/<int:id>', person_update),  # Added person update URL pattern
+
+
+    path('imagefiles', imagefiles),  # Added image files URL pattern
+    path('imagefiles_view', imagefiles_view),  # Added image files view URL pattern
+    path('imagefiles_delete/<int:id>', imagefiles_delete),  # Added image files delete URL pattern
+    path('imagefiles_edit/<int:id>', imagefiles_edit),  # Added image files edit URL pattern
+    path('imagefiles_update/<int:id>', imagefiles_update),  # Added image files
+
+    path('setcookie', setcookie),  # Added set cookie URL pattern
+    path('getcookie', getcookie),  # Added get cookie URL pattern
+
+    path('setsession', setsession),  # Added set session URL pattern
+    path('getsession', getsession),  # Added get session URL pattern
+    path('deletesession', deletesession),  # Added delete session URL pattern
+    
+
+    path('home', Home),  # Added home URL pattern
+    path('Login', Login),  # Added user login URL pattern
+    path('UserEdit', UserEdit),  # Added user edit URL pattern
+    path('userLogout', userLogout),  # Added user logout URL pattern
+
+
+    path('trainee/', Trainercreate.as_view(),name='trainer_create'),  # Added trainer create URL pattern
+    path('listview/', TrainerList.as_view(), name='trainer_list'),  # Added trainer list view URL pattern
+    path('trainer_view/<int:pk>/', Trainerdetail.as_view(), name='trainer_detail'),  # Added trainer view URL pattern 
+    path('trainer_update/<int:pk>/', Trainerupdate.as_view(), name='trainer_update'),  # Added trainer update URL pattern
+    path('trainer_delete/<int:pk>/', Trainerdelete.as_view(), name='trainer_delete'),  # Added trainer delete URL pattern
+
 ]

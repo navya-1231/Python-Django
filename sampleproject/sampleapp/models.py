@@ -1,3 +1,4 @@
+from random import choices
 from django.db import models
 
 # Create your models here.
@@ -68,4 +69,38 @@ class Shop(models.Model):
     email=models.EmailField(max_length=50)
     place=models.CharField(max_length=30)
    
-    
+
+# radio button   
+class Person(models.Model):
+    name=models.CharField(max_length=30)
+    gender_choices=[
+        ('female', 'Female'),  # first value is stored in db second value is displayed in form
+        ('male', 'Male'),
+        ('other', 'Other'),
+    ]
+    gender=models.CharField(choices=gender_choices, max_length=10)
+
+class testing_img(models.Model):
+    title=models.CharField(max_length=100)    
+    images=models.ImageField(upload_to='images/')
+
+class Trainer(models.Model):
+    name=models.CharField(max_length=30)
+    age=models.IntegerField()
+    place=models.CharField(max_length=30)
+    email=models.EmailField(max_length=50)
+    phone=models.IntegerField()
+
+
+# generic views in django allows developers to quickly create views without having to write template code,
+# the provide pre build views for common tasks like displaying a list of objects,displaying a single object,creating a form or update an object and deleting an object.in
+# class based generic views:
+# these views are define as python classes.some common class based 
+# listview 
+# to display a list of objects
+# detailsview
+# to display a single objectcreateview
+# to create a new objectupdateview
+# to update an existing object
+# deleteview
+# to delete an existing object

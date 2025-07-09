@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Trainer Detail</h1>
+    
+    <p>Name: {{ trainer.name }}</p>
+    <p>Age: {{ trainer.age }}</p>
+    <p>Place: {{ trainer.place }}</p>
+    <p>Email: {{ trainer.email }}</p>
+    <p>Phone: {{ trainer.phone }}</p>
+
+    <a href="{% url 'trainer_update' trainer.pk %}">Update</a>
+    <a href="{% url 'trainer_delete' trainer.pk %}">Delete</a>
+
+    <a href="{% url 'trainer_list' %}">Back to Trainer List</a>
+</body>
+</html>
