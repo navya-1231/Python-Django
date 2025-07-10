@@ -84,4 +84,7 @@ urlpatterns = [
 
     path('point', EmployeePointCreate),  # Added employee point create URL pattern
     path('point_list', EmployeePointList),  # Added employee point list view URL pattern
+
+
+    path('newfun', new_function)
 ]

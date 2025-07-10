@@ -1,6 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import writer,Author,CollegeForm ,SchoolForm, HospitalForm, CollectionForm,ShopForm
 from .models import Books, Employee, EmployeePoints, Library, Hospital, Collection,Book,Shop, Person, Trainer, testing_img
+from django.template import loader
+
 # Create your views here.
 
 # request:parameter represents the HTTP request sent by the user to the server
@@ -526,3 +528,8 @@ def EmployeePointCreate(request):
 def EmployeePointList(request):
     employee_points = EmployeePoints.objects.all()  # Fetch all EmployeePoints objects from the database
     return render(request, "employee_point_list.html", {"employee_points": employee_points})  # Pass the EmployeePoints objects to the template    
+
+def new_function(request):
+    x="django"
+    y=loader.get_template('hello.html')    
+    return HttpResponse(y.render({"data":x}))  # Render the 'hello.html' template with the context data

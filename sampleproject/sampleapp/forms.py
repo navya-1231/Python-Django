@@ -5,14 +5,15 @@ class writer(forms.Form):
     name=forms.CharField(max_length=30)
     place=forms.CharField(max_length=30)
     age=forms.IntegerField()
-
+ 
 class Author(forms.Form):
     name=forms.CharField(max_length=30,label="Author Name")
     place=forms.CharField(max_length=30,label="Author Place")
     age=forms.IntegerField(label="Author Age")
 
 class CollegeForm(forms.ModelForm):
-    class Meta:
+    class Meta: #class meta is used to define metadata for the form
+        # This class is used to create a form based on the College model
         model = College
         fields = "__all__"  # This will include all fields from the College model
 
@@ -43,3 +44,4 @@ class ShopForm(forms.ModelForm):
         model = Shop
         exclude = ['email']  # Exclude the 'email' field from the form
 
+ 
