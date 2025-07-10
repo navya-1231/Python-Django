@@ -2,7 +2,7 @@ from django.urls import path
 from sampleapp.views import *
 
 urlpatterns = [
-    path('first',display),
+    # path('first',display),
     path('hello',helloview),
     path('one',one),
     path('w',write),
@@ -69,4 +69,19 @@ urlpatterns = [
     path('trainer_update/<int:pk>/', Trainerupdate.as_view(), name='trainer_update'),  # Added trainer update URL pattern
     path('trainer_delete/<int:pk>/', Trainerdelete.as_view(), name='trainer_delete'),  # Added trainer delete URL pattern
 
+    path('books/', books_create, name='books_create'),  # Added books create URL pattern
+    path('books_list/', books_list, name='books_list'),  # Added books list view URL pattern
+    path('books_detail/<int:pk>/', books_detail, name='books_detail'),  # Added books detail view URL pattern
+    path('books_update/<int:pk>/', books_update, name='books_update'),  # Added books update URL pattern
+    path('books_delete/<int:pk>/', books_delete, name='books_delete'),
+
+    path('send',new_email),
+
+    path('Employee', EmployeeCreate),  # Added employee create URL pattern
+    path('Employee_list', EmployeeList),  # Added employee list view URL pattern
+    path('Employee_update/<int:id>', EmployeeUpdate),  # Added employee update URL pattern
+    path('Employee_delete/<int:id>', EmployeeDelete),  # Added employee delete URL pattern
+
+    path('point', EmployeePointCreate),  # Added employee point create URL pattern
+    path('point_list', EmployeePointList),  # Added employee point list view URL pattern
 ]

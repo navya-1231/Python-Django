@@ -104,3 +104,22 @@ class Trainer(models.Model):
 # to update an existing object
 # deleteview
 # to delete an existing object
+
+class Books(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
+    isbn = models.CharField(max_length=13)
+
+class Employee(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    age = models.IntegerField()
+    email = models.EmailField()
+    phone = models.IntegerField()
+    username = models.CharField(max_length=30)
+    password = models.CharField(max_length=100)
+
+class EmployeePoints(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='points')
+    points = models.IntegerField()
